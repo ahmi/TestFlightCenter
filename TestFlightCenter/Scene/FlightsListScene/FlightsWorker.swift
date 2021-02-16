@@ -12,9 +12,22 @@
 
 import UIKit
 
-class FlightsWorker
-{
-  func doSomeWork()
-  {
-  }
+protocol FlightStoreProtocol {
+    func fetchFlightsList(completion: @escaping (FlightsAPIResult))
+}
+typealias FlightsAPIResult = (Result<[Flight], FlightStoreError>) -> Void
+
+class FlightsWorker {
+    var flightStoreProtocol: FlightStoreProtocol
+    init(flightStoreProtocol: FlightStoreProtocol) {
+        self.flightStoreProtocol = flightStoreProtocol
+    }
+    
+    func getAllFlightList(completion: @escaping (FlightsAPIResult)) {
+        flightStoreProtocol.fetchFlightsList { (result) in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+    }
 }
