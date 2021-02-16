@@ -25,7 +25,9 @@ class FlightsPresenter: FlightsPresentationLogic
   
   func presentSomething(response: Flights.FlightModel.Response)
   {
-    let viewModel = Flights.FlightModel.ViewModel(flightHeadlineInfo: "Test string")
-    viewController?.displaySomething(viewModel: viewModel)
+//    let timestamp = DateFormatter.localizedString(from: NSDate() as Date, dateStyle: .medium, timeStyle: .short)
+//
+//    let viewModel = Flights.FlightModel.ViewModel(flightDate: , flightDateHeader: "", flightInfo: [])
+//    viewController?.displaySomething(viewModel: viewModel)
   }
 }

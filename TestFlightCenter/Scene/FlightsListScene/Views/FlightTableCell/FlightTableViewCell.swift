@@ -18,6 +18,7 @@ class FlightTableViewCell: UITableViewCell {
     @IBOutlet weak var lblArrivalTime: UILabel!
     @IBOutlet weak var lblDestinationCityFull: UILabel!
     @IBOutlet weak var lblDepartTime: UILabel!
+    @IBOutlet weak var containerView: UIView!
     
     /// Constants to be used in UI
     typealias Colors = FlightCenter.AppColor
@@ -28,12 +29,15 @@ class FlightTableViewCell: UITableViewCell {
         static let contentViewShadowColor: CGColor = UIColor(red: 0.00, green:0.00, blue:0.00, alpha:0.40).cgColor
         static let contentViewBorderColor: CGColor = UIColor(red: 0.00, green:0.00, blue:0.00, alpha:0.14).cgColor
     }
-    
+        
     //MARK:- Functions
     
-    @IBOutlet weak var containerView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupUI()
+    }
+   
+    private func setupUI(){
         containerView.layer.borderWidth = Constants.contentViewBorderWidth
         containerView.layer.borderColor = Constants.contentViewBorderColor
         containerView.layer.cornerRadius = Constants.contentViewCornerRadius
@@ -41,7 +45,6 @@ class FlightTableViewCell: UITableViewCell {
         containerView.layer.shadowColor = Constants.contentViewShadowColor
         containerView.layer.shadowOpacity = 1
     }
-    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

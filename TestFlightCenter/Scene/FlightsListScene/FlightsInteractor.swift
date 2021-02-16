@@ -14,7 +14,7 @@ import UIKit
 
 protocol FlightsBusinessLogic
 {
-  func doSomething(request: Flights.FlightModel.Request)
+  func fetchFlights()
 }
 
 protocol FlightsDataStore
@@ -24,18 +24,27 @@ protocol FlightsDataStore
 
 class FlightsInteractor: FlightsBusinessLogic, FlightsDataStore
 {
-  var presenter: FlightsPresentationLogic?
-  var worker: FlightsWorker?
-  var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: Flights.FlightModel.Request)
-  {
-    worker = FlightsWorker()
-    worker?.doSomeWork()
-    
-    let response = Flights.FlightModel.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var presenter: FlightsPresentationLogic?
+    var worker: FlightsWorker?
+    var name: String = ""
+
+    func fetchFlights() {
+        let flightStore = FlightLocalStore() //FlightAPIStore()
+        worker = FlightsWorker(flightStoreProtocol: flightStore)
+        worker?.getAllFlightList(completion: { (result) in
+            print("\(result)")
+            switch result {
+                case .success(let flightList):
+                    let response =  Flights.FlightModel.Response(flights: flightList, message: "Success")
+                    for flight in flightList {
+                        NetworkingHelper.formatDateString(strDate: flight.arrival_date)
+                        NetworkingHelper.formatDateString(strDate: flight.departure_date)
+                    }
+                    print(response)
+                case .failure(let error): do {
+                    print(error.errorMessage)
+                }
+            }
+        })
+    }
 }

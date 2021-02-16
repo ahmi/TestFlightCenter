@@ -84,17 +84,15 @@ class FlightsViewController: UIViewController, FlightsDisplayLogic
     {
         super.viewDidLoad()
         setupTableView()
-        //doSomething()
+        interactor?.fetchFlights()
     }
     
     // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
+        
     func doSomething()
     {
-        let request = Flights.FlightModel.Request()
-        interactor?.doSomething(request: request)
+        _ = Flights.FlightModel.Request()
+       // interactor?.doSomething(request: request)
     }
     
     func displaySomething(viewModel: Flights.FlightModel.ViewModel)

@@ -7,7 +7,7 @@
 
 import UIKit
 struct FlightCenter {
-    
+    /// All colors used in app are declared here , can be used globally
     struct AppColor {
 
         static let borderColor = UIColor(hex: "#e0e0e0")
