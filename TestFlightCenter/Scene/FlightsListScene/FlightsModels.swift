@@ -32,38 +32,20 @@ enum Flights
     }
     struct ViewModel
     {
-        var flightDate: Date? = Date()
-        var flightDateHeader: String? = ""
-        var flightInfo: [FlightInfo]? = []
-        
-        let dateFormatter: DateFormatter = {
-          let dateFormatter = DateFormatter()
-          dateFormatter.dateStyle = .short
-          dateFormatter.timeStyle = .none
-          return dateFormatter
-        }()
-        internal init(flightDate: Date, flightDateHeader: String, flightInfo: [Flights.FlightModel.ViewModel.FlightInfo]) {
-            self.flightDate = flightDate
-            self.flightDateHeader = flightDateHeader
-            self.flightInfo = flightInfo
-        }
+        var groupedFlights =  [Date:[Flight]]()
         
         struct FlightInfo {
-            
-            var flightHeadline: String?
-            var departureCityShortName: String?
-            var departureCityFullName: String?
-            var arrivalCityShortName: String?
-            var arrivalCityFullName: String?
-            var departureTimeShort: String?
-            var departureTimeFull: Date?
-            var arrivalTimeShort: String?
-            var arrivalTimeFull: Date?
-            var flightStops: String?
-            var flightduration: String?
-            
-            internal init(flightHeadline: String? = "", departureCityShortName: String? = "", departureCityFullName: String? = "", arrivalCityShortName: String? = "", arrivalCityFullName: String? = "", departureTimeShort: String? = "", departureTimeFull: Date? = nil, arrivalTimeShort: String? = "", arrivalTimeFull: Date? = nil, flightStops: String? = "", flightduration: String? = "") {
-                self.flightHeadline = flightHeadline
+            internal init(flightID: Int = 0,
+                          departureCityShortName: String? = nil,
+                          departureCityFullName: String? = nil,
+                          arrivalCityShortName: String? = nil,
+                          arrivalCityFullName: String? = nil,
+                          departureTimeShort: String? = nil,
+                          departureTimeFull: Date? = nil,
+                          arrivalTimeShort: String? = nil,
+                          arrivalTimeFull: Date? = nil,
+                          flightStops: String? = nil,
+                          flightduration: String? = nil) {
                 self.departureCityShortName = departureCityShortName
                 self.departureCityFullName = departureCityFullName
                 self.arrivalCityShortName = arrivalCityShortName
@@ -76,37 +58,24 @@ enum Flights
                 self.flightduration = flightduration
             }
             
+            var flightHeadline: String {
+                guard let array = arrivalCityFullName?.components(separatedBy: ", ") else { return ""}
+                let str = "Flight to" + array[0]
+                return str
+            }
+            var flightID: Int = 0
+            var departureCityShortName: String?
+            var departureCityFullName: String?
+            var arrivalCityShortName: String?
+            var arrivalCityFullName: String?
+            var departureTimeShort: String?
+            var departureTimeFull: Date?
+            var arrivalTimeShort: String?
+            var arrivalTimeFull: Date?
+            var flightStops: String?
+            var flightduration: String?
+            
         }
     }
   }
-}
-
-///Temp function here for convenience , should move to Global Struct
-
-extension NetworkingHelper {
-  
-    /// This function will convert date string from given format to required format
-    /// This will  help sorting flights with same date and putting them in same array to show in same section in list
-    
-    static func formatDateString(strDate: String) {
-        let dateFormatter = DateFormatter()
-        //Given format
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-        
-        let dateFromInputString = dateFormatter.date(from: strDate)
-   
-        //   now convert into format like Wenesday, 21 August
-        dateFormatter.dateFormat = "EEEE, MMMM dd"
-        
-        /* Tired now */
-      
-        if(dateFromInputString != nil){
-           let date =  dateFormatter.string(from: dateFromInputString!)
-            print(date)
-        }
-        else{
-           debugPrint("could not convert date")
-           print ("N/A")
-        }
-    }
 }

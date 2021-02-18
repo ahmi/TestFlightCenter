@@ -27,24 +27,54 @@ class FlightsInteractor: FlightsBusinessLogic, FlightsDataStore
     var presenter: FlightsPresentationLogic?
     var worker: FlightsWorker?
     var name: String = ""
-
+    
     func fetchFlights() {
         let flightStore = FlightLocalStore() //FlightAPIStore()
         worker = FlightsWorker(flightStoreProtocol: flightStore)
         worker?.getAllFlightList(completion: { (result) in
-            print("\(result)")
             switch result {
                 case .success(let flightList):
                     let response =  Flights.FlightModel.Response(flights: flightList, message: "Success")
-                    for flight in flightList {
-                        NetworkingHelper.formatDateString(strDate: flight.arrival_date)
-                        NetworkingHelper.formatDateString(strDate: flight.departure_date)
+                    let empty: [Date: [Flight]] = [:]
+                    let groupedByDate = flightList.reduce(into: empty) { acc, currentFlight in
+                        guard let departeDate = currentFlight.departure_date.convertStringToDateFullFormat() else { return }
+                        let components = Calendar.current.dateComponents([.year, .month, .day], from: departeDate)
+                        let date = Calendar.current.date(from: components)!
+                        let existing = acc[date] ?? []
+                        acc[date] = existing + [currentFlight]
                     }
-                    print(response)
+                    let viewModel = Flights.FlightModel.ViewModel.init(groupedFlights: groupedByDate)
+                    print("Unformatted - Number of unique Dates/Sections: \(viewModel.groupedFlights.count)")
+                
+                    var finalArray = [LogicalFlights]()
+                    let groupedByDate2 = groupedByDate.map { (flightDict) -> [LogicalFlights] in
+                       
+                        let logicalFlightTopObject = LogicalFlights.init(
+                            sectionHeader: FlightCenter.DateWrraper.convertStringToDate(date: flightDict.key),
+                            sectionHeaderDate: flightDict.key,
+                            sameDayFlights: flightDict.value.map { (flight) -> LogicalSingleFlight in
+                                
+                                return  LogicalSingleFlight.init(
+                                    departureCityShortName: flight.departure_city + " Short",
+                                    departureCityFullName: flight.departure_city,
+                                    arrivalCityShortName: flight.arrival_city + " Short",
+                                    arrivalCityFullName: flight.arrival_city,
+                                    departureTimeShort: FlightCenter.DateWrraper.convertDateStringToTime(date:flight.departure_date),
+                                    arrivalTimeShort: FlightCenter.DateWrraper.convertDateStringToTime(date:flight.arrival_date),
+                                    flightStops: "Non-stop",
+                                    flightduration: flight.scheduled_duration
+                                )
+                            }
+                        )
+                    finalArray.append(logicalFlightTopObject)
+                       return finalArray
+                    }
+                    print("Formatted: Number of Dates/Sections: \(groupedByDate2.count)")
                 case .failure(let error): do {
                     print(error.errorMessage)
                 }
             }
         })
     }
+    
 }
