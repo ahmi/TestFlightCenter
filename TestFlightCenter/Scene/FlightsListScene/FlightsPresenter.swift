@@ -14,20 +14,19 @@ import UIKit
 
 protocol FlightsPresentationLogic
 {
-  func presentSomething(response: Flights.FlightModel.Response)
+  func presentSomething(response: Flights.DisplayFlightList.ViewModel)
 }
 
 class FlightsPresenter: FlightsPresentationLogic
 {
+    func presentSomething(response: Flights.DisplayFlightList.ViewModel) {
+        print("viewModel received inside Presenter: \(response.groupedFlights)")
+
+        viewController?.displaySomething(viewModel: response)
+    }
+    
   weak var viewController: FlightsDisplayLogic?
   
-  // MARK: Do something
+
   
-  func presentSomething(response: Flights.FlightModel.Response)
-  {
-//    let timestamp = DateFormatter.localizedString(from: NSDate() as Date, dateStyle: .medium, timeStyle: .short)
-//
-//    let viewModel = Flights.FlightModel.ViewModel(flightDate: , flightDateHeader: "", flightInfo: [])
-//    viewController?.displaySomething(viewModel: viewModel)
-  }
 }

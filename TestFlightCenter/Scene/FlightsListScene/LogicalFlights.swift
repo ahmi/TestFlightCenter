@@ -25,16 +25,17 @@ struct LogicalFlights {
 struct LogicalSingleFlight {
     internal init(
         flightID: Int = 0,
-        departureCityShortName: String? = nil,
+        departureAirport: String? = nil,
         departureCityFullName: String? = nil,
         arrivalCityShortName: String? = nil,
         arrivalCityFullName: String? = nil,
         departureTimeShort: String? = nil,
         arrivalTimeShort: String? = nil,
+        arrivalAirport: String? = nil,
         flightStops: String? = nil,
         flightduration: String? = nil
     ) {
-        self.departureCityShortName = departureCityShortName
+        self.departureAirport = departureAirport
         self.departureCityFullName = departureCityFullName
         self.arrivalCityShortName = arrivalCityShortName
         self.arrivalCityFullName = arrivalCityFullName
@@ -43,9 +44,10 @@ struct LogicalSingleFlight {
         self.flightStops = flightStops
         self.flightduration = flightduration
         self.flightID = flightID
+        self.arrivalAirport = arrivalAirport
     }
     
-    var departureCityShortName: String?
+    var departureAirport: String?
     var departureCityFullName: String?
     var arrivalCityShortName: String?
     var arrivalCityFullName: String?
@@ -54,5 +56,6 @@ struct LogicalSingleFlight {
     var flightStops: String?
     var flightduration: String?
     var flightID: Int = 0
+    var arrivalAirport: String?
     
 }

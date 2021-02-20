@@ -10,13 +10,14 @@ import UIKit
 
 protocol FlightsDisplayLogic: class
 {
-  func displaySomething(viewModel: Flights.FlightModel.ViewModel)
+  func displaySomething(viewModel: Flights.DisplayFlightList.ViewModel)
 }
 
 class FlightsViewController: UIViewController, FlightsDisplayLogic
 {
     var interactor: FlightsBusinessLogic?
     var router: (NSObjectProtocol & FlightsRoutingLogic & FlightsDataPassing)?
+    var viewModel: Flights.DisplayFlightList.ViewModel
     
     @IBOutlet weak var tableFlights: UITableView!
     
@@ -24,12 +25,14 @@ class FlightsViewController: UIViewController, FlightsDisplayLogic
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
+        self.viewModel = Flights.DisplayFlightList.ViewModel(response:.init(flights: [], message: nil))
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
     
     required init?(coder aDecoder: NSCoder)
     {
+        self.viewModel = Flights.DisplayFlightList.ViewModel(response:.init(flights: [], message: nil))
         super.init(coder: aDecoder)
         setup()
     }
@@ -91,32 +94,51 @@ class FlightsViewController: UIViewController, FlightsDisplayLogic
         
     func doSomething()
     {
-        _ = Flights.FlightModel.Request()
+        _ = Flights.DisplayFlightList.Request()
        // interactor?.doSomething(request: request)
     }
     
-    func displaySomething(viewModel: Flights.FlightModel.ViewModel)
+    func displaySomething(viewModel: Flights.DisplayFlightList.ViewModel)
     {
-        //nameTextField.text = viewModel.name
+        print("viewModel received inside viewcontroller: \(viewModel.groupedFlights)")
+        self.viewModel = viewModel
+        self.tableFlights.reloadData()
     }
 }
 
 extension FlightsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        let flightOnSingleDate = self.viewModel.groupedFlights[section]
+        return flightOnSingleDate.sameDayFlights?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableFlights.dequeueReusableCell(withIdentifier: "FlightTableViewCell", for: indexPath) as! FlightTableViewCell
+        let groupedFlight = self.viewModel.groupedFlights[indexPath.section]
+        let flight = groupedFlight.sameDayFlights![indexPath.row]
+        cell.configure(with: flight)
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        router?.routeToFlightDetailScene(segue: nil)
     }
 }
 
 extension FlightsViewController: UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return viewModel.groupedFlights.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 172
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let flightOnSingleDate = self.viewModel.groupedFlights[section]
+        return flightOnSingleDate.sectionHeader
+    }
+   
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = .clear
+        (view as! UITableViewHeaderFooterView).textLabel?.textColor = FlightCenter.AppColor.listHeaderTextColor
     }
 }

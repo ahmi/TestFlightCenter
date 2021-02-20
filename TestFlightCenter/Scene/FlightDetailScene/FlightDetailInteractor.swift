@@ -19,14 +19,16 @@ protocol FlightDetailBusinessLogic
 
 protocol FlightDetailDataStore
 {
-  //var name: String { get set }
+    var selectedFlight: LogicalSingleFlight { get set }
 }
 
 class FlightDetailInteractor: FlightDetailBusinessLogic, FlightDetailDataStore
 {
+    var selectedFlight = LogicalSingleFlight()
+    
   var presenter: FlightDetailPresentationLogic?
   var worker: FlightDetailWorker?
-  //var name: String = ""
+  var name: String = ""
   
   // MARK: Do something
   

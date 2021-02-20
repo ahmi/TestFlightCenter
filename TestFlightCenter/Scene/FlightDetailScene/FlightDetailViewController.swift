@@ -84,13 +84,16 @@ class FlightDetailViewController: UIViewController, FlightDetailDisplayLogic
     super.viewDidLoad()
     doSomething()
   }
-  
+    override func viewDidAppear(_ animated: Bool) {
+        
+    }
   // MARK: Do something
   
   //@IBOutlet weak var nameTextField: UITextField!
   
   func doSomething()
   {
+   print("\( router?.dataStore)")
     let request = FlightDetail.Something.Request()
     interactor?.doSomething(request: request)
   }

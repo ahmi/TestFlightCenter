@@ -14,6 +14,10 @@ struct FlightCenter {
         static let borderColor = UIColor(hex: "#e0e0e0")
         static let shadowColor = UIColor(hex: "#e0e0e0")
         static let blueCardColor = UIColor(red: 0.00, green:0.28, blue:0.72, alpha:1.00)
+        static let contentViewShadowColor: CGColor = UIColor(red: 0.00, green:0.00, blue:0.00, alpha:0.40).cgColor
+        static let contentViewBorderColor: CGColor = UIColor(red: 0.00, green:0.00, blue:0.00, alpha:0.14).cgColor
+        static let navigationBarBGColor  = UIColor(red: 0.83, green:0.00, blue:0.10, alpha:1.00)
+        static let listHeaderTextColor  = UIColor(red: 0.45, green:0.45, blue:0.45, alpha:1.00)
         
     }
     
@@ -22,6 +26,18 @@ struct FlightCenter {
         static let flightDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
         static let flightDateSectionHeaderFormat = "EEEE, MMMM dd"
         static let flightTimeFormat = "HH:mm"
+    }
+    
+    /// String Wrapper
+    
+    struct StringHelper {
+        static func getShortStringSepratedByComma(mainString: String) -> String {
+            let array = mainString.components(separatedBy: ", ")
+            guard array.count > 1 else {
+                return mainString
+            }
+            return array[0]
+        }
     }
     
     struct DateWrraper {
