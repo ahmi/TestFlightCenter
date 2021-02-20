@@ -13,6 +13,7 @@ struct FlightCenter {
 
         static let borderColor = UIColor(hex: "#e0e0e0")
         static let shadowColor = UIColor(hex: "#e0e0e0")
+        static let blueCardColor = UIColor(red: 0.00, green:0.28, blue:0.72, alpha:1.00)
         
     }
     

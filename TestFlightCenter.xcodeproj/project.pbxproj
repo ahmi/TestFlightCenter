@@ -33,6 +33,13 @@
 		84AEC7C125DBC8FA008B6270 /* FlightLocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEC7C025DBC8FA008B6270 /* FlightLocalStore.swift */; };
 		84AEC7C925DCD044008B6270 /* Date+FormatAndStringConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEC7C825DCD044008B6270 /* Date+FormatAndStringConversion.swift */; };
 		84AEC7CE25DE6CAE008B6270 /* LogicalFlights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEC7CD25DE6CAE008B6270 /* LogicalFlights.swift */; };
+		84AEC7D325E0C99E008B6270 /* UIImage+QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEC7D225E0C99E008B6270 /* UIImage+QRCode.swift */; };
+		84AEC7DD25E0CABB008B6270 /* FlightDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEC7D725E0CABA008B6270 /* FlightDetailPresenter.swift */; };
+		84AEC7DE25E0CABB008B6270 /* FlightDetailWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEC7D825E0CABA008B6270 /* FlightDetailWorker.swift */; };
+		84AEC7DF25E0CABB008B6270 /* FlightDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEC7D925E0CABA008B6270 /* FlightDetailRouter.swift */; };
+		84AEC7E025E0CABB008B6270 /* FlightDetailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEC7DA25E0CABB008B6270 /* FlightDetailModels.swift */; };
+		84AEC7E125E0CABB008B6270 /* FlightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEC7DB25E0CABB008B6270 /* FlightDetailViewController.swift */; };
+		84AEC7E225E0CABB008B6270 /* FlightDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEC7DC25E0CABB008B6270 /* FlightDetailInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +92,13 @@
 		84AEC7C025DBC8FA008B6270 /* FlightLocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightLocalStore.swift; sourceTree = "<group>"; };
 		84AEC7C825DCD044008B6270 /* Date+FormatAndStringConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+FormatAndStringConversion.swift"; sourceTree = "<group>"; };
 		84AEC7CD25DE6CAE008B6270 /* LogicalFlights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicalFlights.swift; sourceTree = "<group>"; };
+		84AEC7D225E0C99E008B6270 /* UIImage+QRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+QRCode.swift"; sourceTree = "<group>"; };
+		84AEC7D725E0CABA008B6270 /* FlightDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailPresenter.swift; sourceTree = "<group>"; };
+		84AEC7D825E0CABA008B6270 /* FlightDetailWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailWorker.swift; sourceTree = "<group>"; };
+		84AEC7D925E0CABA008B6270 /* FlightDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailRouter.swift; sourceTree = "<group>"; };
+		84AEC7DA25E0CABB008B6270 /* FlightDetailModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailModels.swift; sourceTree = "<group>"; };
+		84AEC7DB25E0CABB008B6270 /* FlightDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailViewController.swift; sourceTree = "<group>"; };
+		84AEC7DC25E0CABB008B6270 /* FlightDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +153,12 @@
 		8423B3E625D8E10C0026ED8E /* FlightDetailScene */ = {
 			isa = PBXGroup;
 			children = (
+				84AEC7D725E0CABA008B6270 /* FlightDetailPresenter.swift */,
+				84AEC7D825E0CABA008B6270 /* FlightDetailWorker.swift */,
+				84AEC7D925E0CABA008B6270 /* FlightDetailRouter.swift */,
+				84AEC7DA25E0CABB008B6270 /* FlightDetailModels.swift */,
+				84AEC7DB25E0CABB008B6270 /* FlightDetailViewController.swift */,
+				84AEC7DC25E0CABB008B6270 /* FlightDetailInteractor.swift */,
 			);
 			path = FlightDetailScene;
 			sourceTree = "<group>";
@@ -166,6 +186,7 @@
 				8423B41C25D9192E0026ED8E /* UIColor+HEX.swift */,
 				8423B42425D91B270026ED8E /* UIColor+TraitCollection.swift */,
 				84AEC7C825DCD044008B6270 /* Date+FormatAndStringConversion.swift */,
+				84AEC7D225E0C99E008B6270 /* UIImage+QRCode.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -406,19 +427,26 @@
 				8423B40325D90B0D0026ED8E /* FlightsViewController.swift in Sources */,
 				8423B3FF25D90B0D0026ED8E /* FlightsPresenter.swift in Sources */,
 				84AEC78425DA5A60008B6270 /* Flight.swift in Sources */,
+				84AEC7DD25E0CABB008B6270 /* FlightDetailPresenter.swift in Sources */,
 				8423B40125D90B0D0026ED8E /* FlightsRouter.swift in Sources */,
 				84AEC7C125DBC8FA008B6270 /* FlightLocalStore.swift in Sources */,
 				8423B41D25D9192E0026ED8E /* UIColor+HEX.swift in Sources */,
+				84AEC7DE25E0CABB008B6270 /* FlightDetailWorker.swift in Sources */,
 				845BEACF25D969EE00F481FA /* ErrorHandler.swift in Sources */,
 				84AEC7CE25DE6CAE008B6270 /* LogicalFlights.swift in Sources */,
+				84AEC7DF25E0CABB008B6270 /* FlightDetailRouter.swift in Sources */,
 				8423B40025D90B0D0026ED8E /* FlightsWorker.swift in Sources */,
 				8423B40C25D90FFA0026ED8E /* FlightTableViewCell.swift in Sources */,
 				8464D61F25D8D82E009A48F3 /* AppDelegate.swift in Sources */,
+				84AEC7E225E0CABB008B6270 /* FlightDetailInteractor.swift in Sources */,
 				84AEC79325DA767B008B6270 /* Networking.swift in Sources */,
+				84AEC7E025E0CABB008B6270 /* FlightDetailModels.swift in Sources */,
 				8423B42525D91B270026ED8E /* UIColor+TraitCollection.swift in Sources */,
 				84AEC7C925DCD044008B6270 /* Date+FormatAndStringConversion.swift in Sources */,
 				84AEC77E25DA55A1008B6270 /* FlightAPIStore.swift in Sources */,
+				84AEC7E125E0CABB008B6270 /* FlightDetailViewController.swift in Sources */,
 				8464D62125D8D82E009A48F3 /* SceneDelegate.swift in Sources */,
+				84AEC7D325E0C99E008B6270 /* UIImage+QRCode.swift in Sources */,
 				8423B40425D90B0D0026ED8E /* FlightsInteractor.swift in Sources */,
 				8423B40225D90B0D0026ED8E /* FlightsModels.swift in Sources */,
 			);
